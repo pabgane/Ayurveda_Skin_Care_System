@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="782.0" prefWidth="1030.0" style="-fx-background-color: #0000;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.ayurveda_skin_care.controller.EmployeeManagementController">
+   <children>
+      <VBox layoutX="186.0" layoutY="22.0" prefHeight="53.0" prefWidth="523.0">
+         <padding>
+            <Insets left="120.0" />
+         </padding>
+         <children>
+            <Label prefHeight="54.0" prefWidth="460.0" text="Employee Management">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <HBox layoutX="96.0" layoutY="79.0" prefHeight="366.0" prefWidth="703.0">
+         <children>
+            <VBox prefHeight="366.0" prefWidth="324.0">
+               <children>
+                  <Label text="Employee Id :">
+                     <VBox.margin>
+                        <Insets left="160.0" top="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Name :">
+                     <VBox.margin>
+                        <Insets left="201.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Email :">
+                     <VBox.margin>
+                        <Insets left="205.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Phone :">
+                     <VBox.margin>
+                        <Insets left="197.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Age :">
+                     <VBox.margin>
+                        <Insets left="212.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Address :">
+                     <VBox.margin>
+                        <Insets left="184.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Salary :">
+                     <VBox.margin>
+                        <Insets left="195.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Emergency Contact :">
+                     <padding>
+                        <Insets left="109.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Hire Date :">
+                     <VBox.margin>
+                        <Insets left="173.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Position :">
+                     <VBox.margin>
+                        <Insets left="182.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Status :">
+                     <VBox.margin>
+                        <Insets left="194.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="392.0" prefWidth="478.0">
+               <children>
+                  <TextField>
+                     <VBox.margin>
+                        <Insets top="14.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField>
+                     <VBox.margin>
+                        <Insets top="13.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField>
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField>
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField>
+                     <VBox.margin>
+                        <Insets top="9.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField>
+                     <VBox.margin>
+                        <Insets top="9.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField>
+                     <VBox.margin>
+                        <Insets top="9.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextField>
+                     <VBox.margin>
+                        <Insets top="11.0" />
+                     </VBox.margin>
+                  </TextField>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox layoutX="265.0" layoutY="490.0" prefHeight="39.0" prefWidth="604.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: #2ecc71;" text="Save" textFill="#fcfafa">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" style="-fx-background-color: #3498db;" text="Update" textFill="#fcfafa">
+               <HBox.margin>
+                  <Insets left="70.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #e74c3c;" text="Delete" textFill="#faf4f4">
+               <HBox.margin>
+                  <Insets left="70.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="93.0" style="-fx-background-color: #7f8c8d;" text="Clear" textFill="#efe9e9">
+               <HBox.margin>
+                  <Insets left="60.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <ScrollPane layoutX="47.0" layoutY="529.0" prefHeight="224.0" prefWidth="926.0">
+         <content>
+            <TableView prefHeight="200.0" prefWidth="926.0">
+              <columns>
+                <TableColumn prefWidth="83.20000630617142" text="Employee Id" />
+                <TableColumn prefWidth="84.79998779296875" text="Name" />
+                  <TableColumn prefWidth="69.60000610351562" text="Email" />
+                  <TableColumn prefWidth="80.80001831054688" text="Phone" />
+                  <TableColumn prefWidth="47.20001220703125" text="Age" />
+                  <TableColumn prefWidth="104.79998779296875" text="Address" />
+                  <TableColumn prefWidth="82.39996337890625" text="Salary" />
+                  <TableColumn prefWidth="97.5999755859375" text="Emergancy Contact" />
+                  <TableColumn prefWidth="93.5999755859375" text="Hire Date" />
+                  <TableColumn prefWidth="92.7999267578125" text="Position" />
+                  <TableColumn prefWidth="93.5999755859375" text="Status" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

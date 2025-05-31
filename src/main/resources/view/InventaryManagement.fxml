@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="631.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.ayurveda_skin_care.controller.InventaryManagementController">
+   <children>
+      <VBox prefHeight="631.0" prefWidth="218.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="224.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../OneDrive/Desktop/16.jpeg" />
+               </image>
+            </ImageView>
+            <HBox prefHeight="498.0" prefWidth="224.0" style="-fx-background-color: #696969;">
+               <children>
+                  <Button mnemonicParsing="false" text="LOGOUT" />
+               </children>
+               <padding>
+                  <Insets left="80.0" top="450.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <Label layoutX="319.0" layoutY="39.0" prefHeight="34.0" prefWidth="394.0" text="INVENTARY MANAGEMENT">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TextField layoutX="432.0" layoutY="102.0" prefHeight="26.0" prefWidth="370.0" promptText="SEARCH" />
+      <TableView layoutX="277.0" layoutY="190.0" prefHeight="200.0" prefWidth="270.0">
+        <columns>
+          <TableColumn prefWidth="183.99993896484375" text="Item Name" />
+          <TableColumn prefWidth="86.40005493164062" text="Category" />
+        </columns>
+      </TableView>
+      <TableView layoutX="547.0" layoutY="190.0" prefHeight="200.0" prefWidth="244.0">
+        <columns>
+          <TableColumn prefWidth="120.7999267578125" text="Price" />
+          <TableColumn prefWidth="122.4000244140625" text="Quantity" />
+        </columns>
+      </TableView>
+      <Button layoutX="302.0" layoutY="440.0" mnemonicParsing="false" style="-fx-background-color: #696969;" text="ADD INVENTARY" textFill="#efebeb" />
+      <Button layoutX="475.0" layoutY="440.0" mnemonicParsing="false" style="-fx-background-color: #696969;" text="SAVE INVENTARY" textFill="#efecec" />
+      <Button layoutX="642.0" layoutY="440.0" mnemonicParsing="false" style="-fx-background-color: #696969;" text="DELETE INVENTARY" textFill="#faf8f8" />
+   </children>
+</AnchorPane>
