@@ -16,16 +16,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CustomerManagementController {
 
     @FXML
-    private TextField lblCustomerId, txtName, txtAge, txtEmail, txtPhone, txtAddress;
+    private TextField txtName, txtAge, txtEmail, txtPhone, txtAddress,txtRegistrationDate;
 
     @FXML
-    private DatePicker datePickerRegistration;
+    private Label lblCustomerId;
 
     @FXML
     private TableView<CustomerTm> tblCustomerList;
@@ -166,7 +165,7 @@ public class CustomerManagementController {
             txtEmail.setText(selected.getEmail());
             txtPhone.setText(selected.getPhone());
             txtAddress.setText(selected.getAddress());
-            datePickerRegistration.setValue(LocalDate.parse(selected.getRegistration_Date()));
+            txtRegistrationDate.setText(selected.getRegistration_Date());
         }
     }
 
@@ -178,7 +177,7 @@ public class CustomerManagementController {
             String email = txtEmail.getText();
             String phone = txtPhone.getText();
             String address = txtAddress.getText();
-            String regDate = datePickerRegistration.getValue().toString();
+            String regDate = txtRegistrationDate.getText();
 
             return new CustomerDto(id, name, age, email, phone, address, regDate);
         } catch (Exception e) {
@@ -188,13 +187,12 @@ public class CustomerManagementController {
     }
 
     private void clearFields() {
-        lblCustomerId.clear();
         txtName.clear();
         txtAge.clear();
         txtEmail.clear();
         txtPhone.clear();
         txtAddress.clear();
-        datePickerRegistration.setValue(null);
+        txtRegistrationDate.clear();
     }
 
     private void showAlert(Alert.AlertType type, String msg) {
