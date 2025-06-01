@@ -75,7 +75,7 @@ CREATE TABLE Employees (
     emergency_contact VARCHAR(100),
     Hire_Date DATE,
     Position VARCHAR(100),
-    Status ENUM('Active', 'Inactive') DEFAULT 'Active'
+    Status VARCHAR(100)
 );
 
 CREATE TABLE Treatments (

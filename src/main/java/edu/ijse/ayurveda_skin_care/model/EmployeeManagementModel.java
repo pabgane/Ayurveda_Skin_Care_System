@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class EmployeeManagementModel {
 
-    public boolean saveEmployee(EmployeeManagementDto employeeManagementDto) throws SQLException, ClassNotFoundException {
+    public static boolean saveEmployee(EmployeeManagementDto employeeManagementDto) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("INSERT INTO Employees (Employee_Id, Name, Email, Phone, age, Address, salary, emergency_contact, Hire_Date, Position, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 employeeManagementDto.getEmployee_Id(),
                 employeeManagementDto.getName(),
@@ -24,7 +24,7 @@ public class EmployeeManagementModel {
                 employeeManagementDto.getStatus());
     }
 
-    public boolean updateEmployee(EmployeeManagementDto employeeManagementDto) throws SQLException, ClassNotFoundException {
+    public static boolean updateEmployee(EmployeeManagementDto employeeManagementDto) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("UPDATE Employees SET Name = ?, Email = ?, Phone = ?, age = ?, Address = ?, salary = ?, emergency_contact = ?, Hire_Date = ?, Position = ? WHERE Employee_Id = ?",
                 employeeManagementDto.getName(),
                 employeeManagementDto.getEmail(),
@@ -38,11 +38,11 @@ public class EmployeeManagementModel {
                 employeeManagementDto.getEmployee_Id());
     }
 
-    public boolean deleteEmployee(String employee_Id) throws SQLException, ClassNotFoundException {
+    public static boolean deleteEmployee(String employee_Id) throws SQLException, ClassNotFoundException {
         return CrudUtil.execute("DELETE FROM Employees WHERE Employee_Id = ?", employee_Id);
     }
 
-    public ArrayList<EmployeeManagementDto> getAllEmployees() throws SQLException, ClassNotFoundException {
+    public static ArrayList<EmployeeManagementDto> getAllEmployees() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = CrudUtil.execute("SELECT * FROM Employees");
         ArrayList<EmployeeManagementDto> employeeList = new ArrayList<>();
 
@@ -65,7 +65,7 @@ public class EmployeeManagementModel {
         return employeeList;
     }
 
-    public String getNextEmployeeId() throws SQLException , ClassNotFoundException{
+    public static String getNextEmployeeId() throws SQLException , ClassNotFoundException{
         ResultSet resultSet = CrudUtil.execute("SELECT Employee_Id FROM Employees ORDER BY Employee_Id DESC LIMIT 1");
         char tableCharacter = 'E';
 
