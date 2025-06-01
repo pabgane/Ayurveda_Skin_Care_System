@@ -52,7 +52,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Button>
-                        <Button layoutX="151.0" layoutY="403.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Customer Management" textFill="WHITE">
+                        <Button layoutX="151.0" layoutY="403.0" mnemonicParsing="false" onAction="#btnCustomerManagementOnAction" style="-fx-background-color: fofofo;" text="Customer Management" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>

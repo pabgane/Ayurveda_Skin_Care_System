@@ -38,6 +38,12 @@ public class DashboardAdminController {
         AnchorPane load = FXMLLoader.load(getClass().getResource("/view/EmployeeManagement.fxml"));
         sidePane.getChildren().add(load);
     }
+    @FXML
+    public void btnCustomerManagementOnAction(ActionEvent actionEvent) throws IOException {
+        sidePane.getChildren().clear();
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/CustomerManagement.fxml"));
+        sidePane.getChildren().add(load);
+    }
 }
 
 

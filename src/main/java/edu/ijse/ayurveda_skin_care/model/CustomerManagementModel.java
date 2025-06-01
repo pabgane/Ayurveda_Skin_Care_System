@@ -9,9 +9,8 @@ import java.util.ArrayList;
 
 public class CustomerManagementModel {
 
-
     public boolean saveCustomer(CustomerDto customerDto) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("INSERT INTO Customers (Customer_Id, Name, age, Email, Phone, Address, Registration_Date) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        return CrudUtil.execute("INSERT INTO Customers (Customer_Id, Name, age, Email, Phone, Address, Registration_Date) VALUES (?, ?, ?, ?, ?, ?, ?)",
                 customerDto.getCustomer_Id(),
                 customerDto.getName(),
                 customerDto.getAge(),
@@ -30,7 +29,6 @@ public class CustomerManagementModel {
                 customerDto.getAddress(),
                 customerDto.getRegistration_Date(),
                 customerDto.getCustomer_Id());
-
     }
 
     public boolean deleteCustomer(String customer_id) throws SQLException, ClassNotFoundException {
@@ -43,32 +41,16 @@ public class CustomerManagementModel {
 
         while (resultSet.next()){
             CustomerDto customerDto = new CustomerDto(
-                    resultSet.getString(1)
-                    ,resultSet.getString(2)
-                    ,resultSet.getInt(3)
-                    ,resultSet.getString(4)
-                    ,resultSet.getString(5)
-                    ,resultSet.getString(6)
-                    ,resultSet.getString(7)
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getInt(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7)
             );
             customerList.add(customerDto);
         }
         return customerList;
-    }
-
-    public String getNextCustomerId() throws SQLException , ClassNotFoundException{
-        ResultSet resultSet = CrudUtil.execute("SELECT Customer_Id FROM Customers ORDER BY Customer_Id DESC LIMIT 1");
-        char tableCharacter = 'C';
-
-        if(resultSet.next()){
-            String lastId = resultSet.getString(1);
-            String lastIdNumberString = lastId.substring(1);
-            int lastIdNumber = Integer.parseInt(lastIdNumberString);
-            int nextIdNumber = lastIdNumber + 1;
-            String nextIdString = String.format(tableCharacter + "%03d" , nextIdNumber);
-
-            return nextIdString;
-        }
-        return tableCharacter+ "1";
     }
 }
