@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ancEmployeeList" prefHeight="900.0" prefWidth="1325.0" style="-fx-background-color: fefefe;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.powerhouse.controller.MemberListController">
+<AnchorPane fx:id="ancCustomerManagement" style="-fx-background-color: fefefe;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.powerhouse.controller.MemberListController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="80.0" layoutY="42.0" prefHeight="900.0" prefWidth="1325.0" spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -21,7 +21,7 @@
                   <Font name="Serif Bold" size="48.0" />
                </font>
             </Label>
-            <HBox prefHeight="539.0" prefWidth="1325.0">
+            <HBox prefHeight="325.0" prefWidth="1325.0">
                <children>
                   <VBox alignment="TOP_RIGHT" prefHeight="378.0" prefWidth="395.0" spacing="15.0">
                      <children>
@@ -35,17 +35,12 @@
                               <Font name="Serif Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label text="Weight :">
-                           <font>
-                              <Font name="Serif Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <Label text="Height :">
-                           <font>
-                              <Font name="Serif Bold" size="20.0" />
-                           </font>
-                        </Label>
                         <Label text="Age :">
+                           <font>
+                              <Font name="Serif Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="Email :">
                            <font>
                               <Font name="Serif Bold" size="20.0" />
                            </font>
@@ -55,17 +50,7 @@
                               <Font name="Serif Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label text="Emergency Contact :">
-                           <font>
-                              <Font name="Serif Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <Label text="Medical Conditions :">
-                           <font>
-                              <Font name="Serif Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <Label text="Fitness Goals :">
+                        <Label text="Address :">
                            <font>
                               <Font name="Serif Bold" size="20.0" />
                            </font>
@@ -77,16 +62,6 @@
                            <padding>
                               <Insets top="5.0" />
                            </padding>
-                        </Label>
-                        <Label text="Membership Status :">
-                           <font>
-                              <Font name="Serif Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <Label text="Added By :">
-                           <font>
-                              <Font name="Serif Bold" size="20.0" />
-                           </font>
                         </Label>
                      </children>
                      <padding>
@@ -113,22 +88,6 @@
                            <font>
                               <Font size="18.0" />
                            </font></TextField>
-                        <TextField fx:id="txtWeight" style="-fx-background-radius: 10;">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
-                        </TextField>
-                        <TextField fx:id="txtHeight" style="-fx-background-radius: 10;">
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
                         <TextField fx:id="txtAge" style="-fx-background-radius: 10;">
                            <padding>
                               <Insets top="10.0" />
@@ -136,6 +95,14 @@
                            <font>
                               <Font size="18.0" />
                            </font></TextField>
+                        <TextField fx:id="txtEmail" style="-fx-background-radius: 10;">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </TextField>
                         <TextField fx:id="txtPhone" style="-fx-background-radius: 10;">
                            <padding>
                               <Insets top="10.0" />
@@ -143,10 +110,7 @@
                            <font>
                               <Font size="18.0" />
                            </font></TextField>
-                        <TextField fx:id="txtEmergencyContact" style="-fx-background-radius: 10;">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
+                        <TextField fx:id="txtAddress" style="-fx-background-radius: 10;">
                            <padding>
                               <Insets top="10.0" />
                            </padding>
@@ -154,23 +118,6 @@
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="txtMedicalConditions" style="-fx-background-radius: 10;">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
-                           <font>
-                              <Font size="18.0" />
-                           </font></TextField>
-                        <TextField fx:id="txtFitnessGoals" style="-fx-background-radius: 10;">
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
-                           <font>
-                              <Font size="18.0" />
-                           </font></TextField>
                         <TextField fx:id="txtRegistrationDate" style="-fx-background-radius: 10;">
                            <padding>
                               <Insets top="10.0" />
@@ -178,21 +125,6 @@
                            <font>
                               <Font size="18.0" />
                            </font></TextField>
-                        <TextField fx:id="txtMembershipStatus" style="-fx-background-radius: 10;">
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
-                           <font>
-                              <Font size="18.0" />
-                           </font></TextField>
-                        <TextField fx:id="txtAddedBy" style="-fx-background-radius: 10;">
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </TextField>
                      </children>
                      <padding>
                         <Insets left="10.0" right="30.0" />
@@ -220,22 +152,17 @@
                      </font>
                   </Button>
                </children></HBox>
-            <ScrollPane prefHeight="242.0" prefWidth="1325.0">
+            <ScrollPane prefHeight="363.0" prefWidth="1325.0">
                <content>
-                  <TableView fx:id="tblMemberList" onMouseClicked="#getData" prefHeight="168.0" prefWidth="2274.0">
+                  <TableView fx:id="tblCustomerList" onMouseClicked="#getData" prefHeight="364.0" prefWidth="1319.0">
                      <columns>
-                        <TableColumn fx:id="colId" prefWidth="123.0" text="Member Id" />
+                        <TableColumn fx:id="colCustomerId" prefWidth="123.0" text="Customer Id" />
                         <TableColumn fx:id="colName" prefWidth="252.0" text="Name" />
-                        <TableColumn fx:id="colWeight" prefWidth="112.0" text="Weight" />
-                        <TableColumn fx:id="colHeight" prefWidth="112.0" text="Height" />
-                        <TableColumn fx:id="colAge" prefWidth="112.0" text="Age" />
-                        <TableColumn fx:id="colPhone" prefWidth="195.0" text="Phone" />
-                        <TableColumn fx:id="colEmergencyContact" prefWidth="195.0" text="Emergency Contact" />
-                        <TableColumn fx:id="colMedicalConditions" prefWidth="326.0" text="Medical Conditions" />
-                        <TableColumn fx:id="colFitnessGoals" prefWidth="326.0" text="Fitness Goals" />
-                        <TableColumn fx:id="colRegistrationDate" prefWidth="160.0" text="Registration Date" />
-                        <TableColumn fx:id="colMembershipStatus" prefWidth="160.0" text="Membership Status" />
-                        <TableColumn fx:id="colAddedBy" prefWidth="160.0" text="Added By" />
+                        <TableColumn fx:id="colAge" prefWidth="103.0" text="Age" />
+                        <TableColumn fx:id="colEmail" prefWidth="231.0" text="Email" />
+                        <TableColumn fx:id="colPhone" prefWidth="164.0" text="Phone" />
+                        <TableColumn fx:id="colAddress" prefWidth="266.0" text="Address" />
+                        <TableColumn fx:id="colRegistrationDate" prefWidth="138.0" text="Registration Date" />
                      </columns>
                   </TableView>
                </content>
