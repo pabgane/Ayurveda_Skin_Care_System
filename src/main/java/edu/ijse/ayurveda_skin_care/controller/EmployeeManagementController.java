@@ -109,7 +109,7 @@ public class EmployeeManagementController {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery("SELECT Employee_Id FROM employees ORDER BY Employee_Id DESC LIMIT 1;");
+            ResultSet rst = stm.executeQuery("SELECT Employee_Id FROM Employees ORDER BY Employee_Id DESC LIMIT 1;");
 
             if (rst.next()) {
                 String id = rst.getString("Employee_Id");
@@ -128,7 +128,7 @@ public class EmployeeManagementController {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery("SELECT * FROM employees");
+            ResultSet rst = stm.executeQuery("SELECT * FROM Employees");
 
             ObservableList<EmployeeManagementTm> obList = FXCollections.observableArrayList();
 
@@ -149,7 +149,7 @@ public class EmployeeManagementController {
             }
             tblEmployeeList.setItems(obList);
         } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to load employees").show();
+            new Alert(Alert.AlertType.ERROR, "Failed to load Employees").show();
             e.printStackTrace();
         }
     }
@@ -173,7 +173,7 @@ public class EmployeeManagementController {
 
         try {
             Connection connection = DBConnection.getInstance().getConnection();
-            PreparedStatement pstm = connection.prepareStatement("INSERT INTO employees VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pstm = connection.prepareStatement("INSERT INTO Employees VALUES(?,?,?,?,?,?,?,?,?,?,?)");
             pstm.setString(1, dto.getEmployee_Id());
             pstm.setString(2, dto.getName());
             pstm.setString(3, dto.getEmail());
@@ -224,7 +224,7 @@ public class EmployeeManagementController {
 
             try {
                 Connection connection = DBConnection.getInstance().getConnection();
-                PreparedStatement pstm = connection.prepareStatement("UPDATE employees SET Name=?, Email=?, Phone=?, age=?, Address=?, salary=?, emergency_contact=?, Hire_Date=?, Position=?, Status=? WHERE Employee_Id=?");
+                PreparedStatement pstm = connection.prepareStatement("UPDATE Employees SET Name=?, Email=?, Phone=?, age=?, Address=?, salary=?, emergency_contact=?, Hire_Date=?, Position=?, Status=? WHERE Employee_Id=?");
                 pstm.setString(1, dto.getName());
                 pstm.setString(2, dto.getEmail());
                 pstm.setString(3, dto.getPhone());
@@ -266,7 +266,7 @@ public class EmployeeManagementController {
         if (result.orElse(no) == yes) {
             try {
                 Connection connection = DBConnection.getInstance().getConnection();
-                PreparedStatement pstm = connection.prepareStatement("DELETE FROM employees WHERE Employee_Id=?");
+                PreparedStatement pstm = connection.prepareStatement("DELETE FROM Employees WHERE Employee_Id=?");
                 pstm.setString(1, lblEmployeeId.getText());
 
                 int affectedRows = pstm.executeUpdate();
