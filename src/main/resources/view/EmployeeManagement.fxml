@@ -21,7 +21,7 @@
                   <Font name="Serif Bold" size="48.0" />
                </font>
             </Label>
-            <HBox prefHeight="485.0" prefWidth="1229.0" style="-fx-border-color: #2f3640; -fx-border-width: 5; -fx-border-radius: 7;">
+            <HBox prefHeight="485.0" prefWidth="1229.0" style="-fx-border-width: 5; -fx-border-radius: 7;">
                <children>
                   <VBox alignment="TOP_RIGHT" prefHeight="475.0" prefWidth="413.0" spacing="15.0">
                      <children>
