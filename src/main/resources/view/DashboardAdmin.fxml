@@ -82,7 +82,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Button>
-                        <Button layoutX="111.0" layoutY="581.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Equipment Management" textFill="WHITE">
+                        <Button layoutX="111.0" layoutY="581.0" mnemonicParsing="false" onAction="#btnEquipmentOnAction" style="-fx-background-color: fofofo;" text="Equipment Management" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
