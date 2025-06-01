@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,140 +13,94 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="631.0" prefWidth="837.0" style="-fx-background-color: 3696969;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.ayurveda_skin_care.controller.DashboardAdminController">
+<AnchorPane fx:id="ancDashBoardAdmin" prefHeight="900.0" prefWidth="1850.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.ayurveda_skin_care.controller.DashboardAdminController">
    <children>
-      <VBox prefHeight="631.0" prefWidth="247.0">
+      <HBox prefHeight="900.0" prefWidth="1850.0">
          <children>
-            <Pane prefHeight="150.0" prefWidth="247.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
+            <Pane prefHeight="900.0" prefWidth="670.0" style="-fx-background-color: #696969;">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="247.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="118.0" fitWidth="139.0" layoutX="14.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../OneDrive/Desktop/16.jpeg" />
+                        <Image url="@../images/icon.png" />
                      </image>
                   </ImageView>
+                  <Label layoutX="122.0" layoutY="36.0" text="Ayurveda Skin Care" textFill="#83cd77">
+                     <font>
+                        <Font name="Serif Bold" size="34.0" />
+                     </font>
+                     <effect>
+                        <Reflection />
+                     </effect>
+                  </Label>
+                  <VBox alignment="CENTER" layoutY="99.0" prefHeight="734.0" prefWidth="597.0" spacing="10.0">
+                     <padding>
+                        <Insets bottom="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: fofofo;" text="User Type Management" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="150.0" layoutY="352.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="User Management" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="181.0" layoutY="377.0" mnemonicParsing="false" onAction="#btnEmployeeManagementOnAction" style="-fx-background-color: fofofo;" text="Employee Management" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="151.0" layoutY="403.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Customer Management" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="151.0" layoutY="454.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Treatment Management" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="145.0" layoutY="479.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Appointments Management" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="123.0" layoutY="505.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Supplier Management" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="159.0" layoutY="530.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Payment Method Management" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="106.0" layoutY="556.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Payment Record Management" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="111.0" layoutY="581.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Equipment Management" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Button layoutX="14.0" layoutY="835.0" mnemonicParsing="false" onAction="#btnLogoutOnAction" prefHeight="51.0" prefWidth="125.0" style="-fx-background-color: fofofo; -fx-background-radius: 7;" text="Log out" textFill="#83cd77">
+                     <font>
+                        <Font name="Serif Bold" size="24.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </Pane>
-            <HBox prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-               <padding>
-                  <Insets left="80.0" right="60.0" top="10.0" />
-               </padding>
-               <children>
-                  <Label prefHeight="20.0" prefWidth="160.0" text=" DASHBOARD" textFill="#f7f5f5">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <VBox prefHeight="435.0" prefWidth="247.0">
-               <children>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-                     <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #696969;" text="USERS" textFill="#faf4f4" />
-                     </children>
-                     <padding>
-                        <Insets left="80.0" />
-                     </padding>
-                  </HBox>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-                     <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #696969;" text="EMPLOYEES" textFill="#f7f1f1" />
-                     </children>
-                     <padding>
-                        <Insets left="80.0" />
-                     </padding>
-                  </HBox>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-                     <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #696969;" text="CUSTOMERS" textFill="#efeaea" />
-                     </children>
-                     <padding>
-                        <Insets left="80.0" />
-                     </padding>
-                  </HBox>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-                     <padding>
-                        <Insets left="80.0" />
-                     </padding>
-                     <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #696969;" text="TREATEMENTS" textFill="#ece6e6" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-                     <padding>
-                        <Insets left="80.0" />
-                     </padding>
-                     <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #696969;" text="INVENTORY" textFill="#f2efef" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-                     <padding>
-                        <Insets left="80.0" />
-                     </padding>
-                     <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #696969;" text="SUPPLIERS" textFill="#f7f4f4" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-                     <padding>
-                        <Insets left="80.0" />
-                     </padding>
-                     <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #696969;" text="PAYMENTS" textFill="#f4efef" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-                     <padding>
-                        <Insets left="80.0" />
-                     </padding>
-                  </HBox>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-                     <padding>
-                        <Insets left="80.0" />
-                     </padding>
-                  </HBox>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-                     <padding>
-                        <Insets left="80.0" />
-                     </padding>
-                  </HBox>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-                     <padding>
-                        <Insets left="80.0" />
-                     </padding>
-                  </HBox>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;">
-                     <children>
-                        <Button mnemonicParsing="false" text="LOGOUT" />
-                     </children>
-                     <padding>
-                        <Insets left="80.0" />
-                     </padding>
-                  </HBox>
-                  <HBox prefHeight="34.0" prefWidth="247.0" style="-fx-background-color: #696969;" />
-               </children>
-            </VBox>
+            <Pane fx:id="sidePane" prefHeight="900.0" prefWidth="1325.0" style="-fx-background-color: fefefe;" />
          </children>
-      </VBox>
-      <Label layoutX="297.0" layoutY="46.0" text="DASHBOARD">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="711.0" layoutY="54.0" prefHeight="20.0" prefWidth="50.0" text="Admin">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="61.0" fitWidth="63.0" layoutX="753.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../OneDrive/Desktop/27.png" />
-         </image>
-      </ImageView>
+      </HBox>
    </children>
 </AnchorPane>
