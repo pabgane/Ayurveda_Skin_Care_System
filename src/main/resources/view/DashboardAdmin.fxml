@@ -37,12 +37,12 @@
                         <Insets bottom="20.0" top="20.0" />
                      </padding>
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: fofofo;" text="User Type Management" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#btnUserTypeOnAction" style="-fx-background-color: fofofo;" text="User Type Management" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Button>
-                        <Button layoutX="150.0" layoutY="352.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="User Management" textFill="WHITE">
+                        <Button layoutX="150.0" layoutY="352.0" mnemonicParsing="false" onAction="#btnUserManagementOnAction" style="-fx-background-color: fofofo;" text="User Management" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -57,32 +57,37 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Button>
-                        <Button layoutX="151.0" layoutY="454.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Treatment Management" textFill="WHITE">
+                        <Button layoutX="151.0" layoutY="454.0" mnemonicParsing="false" onAction="#btnTreatmentOnAction" style="-fx-background-color: fofofo;" text="Treatment Management" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Button>
-                        <Button layoutX="145.0" layoutY="479.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Appointments Management" textFill="WHITE">
+                        <Button layoutX="145.0" layoutY="479.0" mnemonicParsing="false" onAction="#btnAppointmentManagementOnAction" style="-fx-background-color: fofofo;" text="Appointments Management" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Button>
-                        <Button layoutX="123.0" layoutY="505.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Supplier Management" textFill="WHITE">
+                        <Button layoutX="123.0" layoutY="505.0" mnemonicParsing="false" onAction="#btnSupplierManagementOnAction" style="-fx-background-color: fofofo;" text="Supplier Management" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Button>
-                        <Button layoutX="159.0" layoutY="530.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Payment Method Management" textFill="WHITE">
+                        <Button layoutX="159.0" layoutY="530.0" mnemonicParsing="false" onAction="#btnPaymentMethodManagementOnAction" style="-fx-background-color: fofofo;" text="Payment Method Management" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Button>
-                        <Button layoutX="106.0" layoutY="556.0" mnemonicParsing="false" style="-fx-background-color: fofofo;" text="Payment Record Management" textFill="WHITE">
+                        <Button layoutX="106.0" layoutY="556.0" mnemonicParsing="false" onAction="#btnPaymentRecordOnAction" style="-fx-background-color: fofofo;" text="Payment Record Management" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Button>
                         <Button layoutX="111.0" layoutY="581.0" mnemonicParsing="false" onAction="#btnEquipmentOnAction" style="-fx-background-color: fofofo;" text="Equipment Management" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="144.0" layoutY="626.0" mnemonicParsing="false" onAction="#btnInventoryItemOnAction" style="-fx-background-color: fofofo;" text="Inventory Item Management" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>

@@ -12,46 +12,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ancTreatmentList" style="-fx-background-color: fefefe;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.ayurveda_skin_care.controller.TreatmentManagementController">
+<AnchorPane fx:id="ancSupplierManagement" style="-fx-background-color: fefefe;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.ayurveda_skin_care.controller.UserTypesController">
     <children>
         <VBox alignment="TOP_CENTER" layoutX="80.0" layoutY="42.0" prefHeight="900.0" prefWidth="1325.0" spacing="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label text="Treatment Management">
+                <Label text="User Types Management">
                     <font>
                         <Font name="Serif Bold" size="48.0" />
                     </font>
                 </Label>
-                <HBox prefHeight="239.0" prefWidth="1325.0" style="-fx-border-width: 5; -fx-border-radius: 7;">
+                <HBox prefHeight="108.0" prefWidth="1325.0">
                     <children>
-                        <VBox alignment="TOP_RIGHT" prefHeight="475.0" prefWidth="413.0" spacing="15.0">
+                        <VBox alignment="TOP_RIGHT" prefHeight="378.0" prefWidth="395.0" spacing="15.0">
                             <children>
-                                <Label text="Treatment Id :">
+                                <Label text="User Type Id :">
                                     <font>
                                         <Font name="Serif Bold" size="20.0" />
                                     </font>
                                 </Label>
-                                <Label text="Name :">
-                                    <font>
-                                        <Font name="Serif Bold" size="20.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets top="-5.0" />
-                                    </padding>
-                                </Label>
-                                <Label layoutX="324.0" layoutY="72.0" text="Description :">
-                                    <font>
-                                        <Font name="Serif Bold" size="20.0" />
-                                    </font>
-                                    <padding>
-                                        <Insets top="-5.0" />
-                                    </padding>
-                                </Label>
-                                <Label text="Duration :">
-                                    <font>
-                                        <Font name="Serif Bold" size="20.0" />
-                                    </font>
-                                </Label>
-                                <Label text="Price :">
+                                <Label text="Type :">
                                     <font>
                                         <Font name="Serif Bold" size="20.0" />
                                     </font>
@@ -66,7 +45,7 @@
                         </VBox>
                         <VBox prefHeight="455.0" prefWidth="552.0" spacing="9.0">
                             <children>
-                                <Label fx:id="lblTreatmentId" prefHeight="42.0" prefWidth="469.0" text="1">
+                                <Label fx:id="lblUserTypeId" prefHeight="42.0" prefWidth="469.0" text="1">
                                     <padding>
                                         <Insets top="10.0" />
                                     </padding>
@@ -74,32 +53,7 @@
                                         <Font name="Serif Bold" size="18.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="txtName" style="-fx-background-radius: 10;">
-                                    <padding>
-                                        <Insets top="10.0" />
-                                    </padding>
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font></TextField>
-                                <TextField fx:id="txtDescription" layoutX="20.0" layoutY="69.0" style="-fx-background-radius: 10;">
-                                    <padding>
-                                        <Insets top="10.0" />
-                                    </padding>
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font>
-                                </TextField>
-                                <TextField fx:id="txtDuration" style="-fx-background-radius: 10;">
-                                    <padding>
-                                        <Insets top="10.0" />
-                                    </padding>
-                                    <font>
-                                        <Font size="18.0" />
-                                    </font></TextField>
-                                <TextField fx:id="txtPrice" style="-fx-background-radius: 10;">
-                                    <VBox.margin>
-                                        <Insets />
-                                    </VBox.margin>
+                                <TextField fx:id="txtType" style="-fx-background-radius: 10;">
                                     <padding>
                                         <Insets top="10.0" />
                                     </padding>
@@ -133,15 +87,12 @@
                             </font>
                         </Button>
                     </children></HBox>
-                <ScrollPane prefHeight="459.0" prefWidth="1325.0">
+                <ScrollPane prefHeight="584.0" prefWidth="1325.0">
                     <content>
-                        <TableView fx:id="tblTreatmentList" onMouseClicked="#getData" prefHeight="456.0" prefWidth="1325.0">
+                        <TableView fx:id="tblUserTypeList" onMouseClicked="#getData" prefHeight="583.0" prefWidth="1319.0">
                             <columns>
-                                <TableColumn fx:id="colTreatmentId" prefWidth="123.0" text="Treatment Id" />
-                                <TableColumn fx:id="colName" prefWidth="271.0" text="Name" />
-                                <TableColumn fx:id="colDescription" prefWidth="484.0" text="Description" />
-                                <TableColumn fx:id="colDuration" prefWidth="226.0" text="Duration" />
-                                <TableColumn fx:id="colPrice" prefWidth="194.0" text="Price" />
+                                <TableColumn fx:id="colUserTypeId" prefWidth="645.0" text="User Type Id" />
+                                <TableColumn fx:id="colType" minWidth="0.0" prefWidth="650.0" text="Type" />
                             </columns>
                         </TableView>
                     </content>

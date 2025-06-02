@@ -1,8 +1,8 @@
 package edu.ijse.ayurveda_skin_care.controller;
 
-import edu.ijse.ayurveda_skin_care.dto.SupplierManagementDto;
-import edu.ijse.ayurveda_skin_care.dto.tm.SupplierManagementTM;
-import edu.ijse.ayurveda_skin_care.model.SupplierManagementModel;
+import edu.ijse.ayurveda_skin_care.dto.UserTypeDto;
+import edu.ijse.ayurveda_skin_care.dto.tm.UserTypeTM;
+import edu.ijse.ayurveda_skin_care.model.UserTypeModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class SupplierManagementController implements Initializable {
+public class UserTypesController implements Initializable {
 
     @FXML
     private AnchorPane ancSupplierManagement;
@@ -35,46 +35,25 @@ public class SupplierManagementController implements Initializable {
     private Button btnUpdate;
 
     @FXML
-    private TableColumn<SupplierManagementTM, String> colAddress;
+    private TableColumn<UserTypeTM, String > colType;
 
     @FXML
-    private TableColumn<SupplierManagementTM, String> colCustomerId;
+    private TableColumn<UserTypeTM, String> colUserTypeId;
 
     @FXML
-    private TableColumn<SupplierManagementTM, String> colEmail;
+    private Label lblUserTypeId;
 
     @FXML
-    private TableColumn<SupplierManagementTM, String> colName;
+    private TableView<UserTypeTM> tblUserTypeList;
 
     @FXML
-    private TableColumn<SupplierManagementTM, String> colPhone;
+    private TextField txtType;
 
-    @FXML
-    private Label lblSupplierId;
-
-    @FXML
-    private TableView<SupplierManagementTM> tblSupplierList;
-
-    @FXML
-    private TextField txtAddress;
-
-    @FXML
-    private TextField txtEmail;
-
-    @FXML
-    private TextField txtName;
-
-    @FXML
-    private TextField txtPhone;
-
-    private final SupplierManagementModel supplierManagementModel = new SupplierManagementModel();
+    private final UserTypeModel userTypeModel = new UserTypeModel();
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("Supplier_Id"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
-        colPhone.setCellValueFactory(new PropertyValueFactory<>("Phone"));
-        colAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        colUserTypeId.setCellValueFactory(new PropertyValueFactory<>("userTypeId"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("type"));
 
         try {
             resetPage();
@@ -87,15 +66,12 @@ public class SupplierManagementController implements Initializable {
     }
 
     public void loadTableData() throws SQLException, ClassNotFoundException {
-        tblSupplierList.setItems(FXCollections.observableArrayList(
-                supplierManagementModel.getAllSuppliers()
+        tblUserTypeList.setItems(FXCollections.observableArrayList(
+                userTypeModel.getAllUserTypes()
                         .stream()
-                        .map(supplierManagementDto -> new SupplierManagementTM(
-                                supplierManagementDto.getSupplier_Id(),
-                                supplierManagementDto.getName(),
-                                supplierManagementDto.getEmail(),
-                                supplierManagementDto.getPhone(),
-                                supplierManagementDto.getAddress()
+                        .map(userTypeDto -> new UserTypeTM(
+                                userTypeDto.getUserTypeId(),
+                                userTypeDto.getType()
                         )).toList()
         ));
     }
@@ -109,11 +85,7 @@ public class SupplierManagementController implements Initializable {
             btnDelete.setDisable(true);
             btnUpdate.setDisable(true);
 
-            txtName.setText(null);
-            txtPhone.setText(null);
-            txtAddress.setText(null);
-            txtEmail.setText(null);
-
+            txtType.setText(null);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,22 +94,16 @@ public class SupplierManagementController implements Initializable {
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
-        String supplierId = lblSupplierId.getText();
-        String name = txtName.getText();
-        String email = txtEmail.getText();
-        String phone = txtPhone.getText();
-        String address = txtAddress.getText();
+        String userTypeId = lblUserTypeId.getText();
+        String type = txtType.getText();
 
 
-        SupplierManagementDto supplierManagementDto = new SupplierManagementDto(
-                supplierId,
-                name,
-                email,
-                phone,
-                address
+        UserTypeDto userTypeDto = new UserTypeDto(
+                userTypeId,
+                type
         );
         try {
-            boolean isSaved = supplierManagementModel.saveSupplier(supplierManagementDto);
+            boolean isSaved = userTypeModel.saveUserType(userTypeDto);
 
             if (isSaved) {
                 resetPage();
@@ -152,22 +118,16 @@ public class SupplierManagementController implements Initializable {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
-        String supplierId = lblSupplierId.getText();
-        String name = txtName.getText();
-        String email = txtEmail.getText();
-        String phone = txtPhone.getText();
-        String address = txtAddress.getText();
+        String userTypeId = lblUserTypeId.getText();
+        String type = txtType.getText();
 
 
-        SupplierManagementDto supplierManagementDto = new SupplierManagementDto(
-                supplierId,
-                name,
-                email,
-                phone,
-                address
+        UserTypeDto userTypeDto = new UserTypeDto(
+                userTypeId,
+                type
         );
         try {
-            boolean isUpdated = supplierManagementModel.updateSupplier(supplierManagementDto);
+            boolean isUpdated = userTypeModel.updateUserType(userTypeDto);
             if(isUpdated){
                 resetPage();
                 new Alert(Alert.AlertType.INFORMATION,"Updated").show();
@@ -190,9 +150,9 @@ public class SupplierManagementController implements Initializable {
         Optional<ButtonType> response = alert.showAndWait();
 
         if(response.isPresent() && response.get() == ButtonType.YES){
-            String supplierId = lblSupplierId.getText();
+            String userTypeId = lblUserTypeId.getText();
             try {
-                boolean isDeleted = supplierManagementModel.deleteSupplier(supplierId);
+                boolean isDeleted = userTypeModel.deleteUserType(userTypeId);
                 if(isDeleted){
                     resetPage();
                     new Alert(Alert.AlertType.INFORMATION,"Deleted").show();
@@ -211,23 +171,21 @@ public class SupplierManagementController implements Initializable {
     }
 
     private void loadNextId() throws SQLException, ClassNotFoundException {
-        String nextId = supplierManagementModel.getNextSupplierId();
-        lblSupplierId.setText(nextId);
+        String nextId = userTypeModel.getNextUserTypeId();
+        lblUserTypeId.setText(nextId);
     }
 
     public void getData(MouseEvent mouseEvent) {
-        SupplierManagementTM selectedItem = tblSupplierList.getSelectionModel().getSelectedItem();
+        UserTypeTM selectedItem = tblUserTypeList.getSelectionModel().getSelectedItem();
 
         if (selectedItem != null) {
-            lblSupplierId.setText(selectedItem.getSupplier_Id());
-            txtName.setText(selectedItem.getName());
-            txtEmail.setText(selectedItem.getEmail());
-            txtPhone.setText(selectedItem.getPhone());
-            txtAddress.setText(selectedItem.getAddress());
+            lblUserTypeId.setText(selectedItem.getUserTypeId());
+            txtType.setText(selectedItem.getType());
 
             btnSave.setDisable(true);
             btnUpdate.setDisable(false);
             btnDelete.setDisable(false);
         }
     }
+
 }

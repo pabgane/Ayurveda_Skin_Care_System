@@ -51,6 +51,56 @@ public class DashboardAdminController {
         AnchorPane load = FXMLLoader.load(getClass().getResource("/view/EquipmentManagement.fxml"));
         sidePane.getChildren().add(load);
     }
+
+    @FXML
+    public void btnTreatmentOnAction(ActionEvent actionEvent) throws IOException {
+        sidePane.getChildren().clear();
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/Treatment.fxml"));
+        sidePane.getChildren().add(load);
+    }
+
+    @FXML
+    public void btnUserManagementOnAction(ActionEvent actionEvent) throws IOException {
+        sidePane.getChildren().clear();
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/UserManagement.fxml"));
+        sidePane.getChildren().add(load);
+    }
+
+    @FXML
+    public void btnInventoryItemOnAction(ActionEvent actionEvent) throws IOException {
+        sidePane.getChildren().clear();
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/InventaryManagement.fxml"));
+        sidePane.getChildren().add(load);
+    }
+
+    @FXML
+    void btnAppointmentManagementOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnPaymentMethodManagementOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnPaymentRecordOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnSupplierManagementOnAction(ActionEvent event) throws IOException {
+        sidePane.getChildren().clear();
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/SupplierManagement.fxml"));
+        sidePane.getChildren().add(load);
+    }
+
+    @FXML
+    void btnUserTypeOnAction(ActionEvent event) throws IOException {
+        sidePane.getChildren().clear();
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/UserTypes.fxml"));
+        sidePane.getChildren().add(load);
+    }
 }
 
 
