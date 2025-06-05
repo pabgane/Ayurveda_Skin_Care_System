@@ -74,18 +74,24 @@ public class DashboardAdminController {
     }
 
     @FXML
-    void btnAppointmentManagementOnAction(ActionEvent event) {
-
+    void btnAppointmentManagementOnAction(ActionEvent event) throws IOException {
+        sidePane.getChildren().clear();
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/AppoinmentManagement.fxml"));
+        sidePane.getChildren().add(load);
     }
 
     @FXML
-    void btnPaymentMethodManagementOnAction(ActionEvent event) {
-
+    void btnPaymentMethodManagementOnAction(ActionEvent event) throws IOException {
+        sidePane.getChildren().clear();
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/PaymentMethodManagement.fxml"));
+        sidePane.getChildren().add(load);
     }
 
     @FXML
-    void btnPaymentRecordOnAction(ActionEvent event) {
-
+    void btnPaymentRecordOnAction(ActionEvent event) throws IOException {
+        sidePane.getChildren().clear();
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/PaymentRecordManagement.fxml"));
+        sidePane.getChildren().add(load);
     }
 
     @FXML

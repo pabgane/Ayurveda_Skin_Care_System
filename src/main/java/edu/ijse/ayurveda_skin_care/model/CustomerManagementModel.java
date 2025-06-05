@@ -53,4 +53,20 @@ public class CustomerManagementModel {
         }
         return customerList;
     }
+
+    public String getNextCustomerId() throws SQLException , ClassNotFoundException{
+        ResultSet resultSet = CrudUtil.execute("SELECT Customer_Id FROM Customers ORDER BY Customer_Id DESC LIMIT 1");
+        char tableCharacter = 'C';
+
+        if(resultSet.next()){
+            String lastId = resultSet.getString(1);
+            String lastIdNumberString = lastId.substring(1);
+            int lastIdNumber = Integer.parseInt(lastIdNumberString);
+            int nextIdNumber = lastIdNumber + 1;
+            String nextIdString = String.format(tableCharacter + "%03d" , nextIdNumber);
+
+            return nextIdString;
+        }
+        return tableCharacter+ "1";
+    }
 }
