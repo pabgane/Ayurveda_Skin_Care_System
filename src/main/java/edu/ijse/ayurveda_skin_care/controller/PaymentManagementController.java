@@ -1,10 +1,7 @@
 package edu.ijse.ayurveda_skin_care.controller;
 
 import edu.ijse.ayurveda_skin_care.dto.PaymentManagementDto;
-import edu.ijse.ayurveda_skin_care.dto.PaymentMethodDto;
 import edu.ijse.ayurveda_skin_care.dto.tm.PaymentManagementTM;
-import edu.ijse.ayurveda_skin_care.dto.tm.PaymentMethodTM;
-import edu.ijse.ayurveda_skin_care.model.PaymentMethodModel;
 import edu.ijse.ayurveda_skin_care.model.PaymentModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
