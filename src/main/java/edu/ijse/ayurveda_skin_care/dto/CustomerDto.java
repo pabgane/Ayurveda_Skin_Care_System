@@ -16,4 +16,6 @@ public class CustomerDto {
     private String Address;
     private String Registration_Date;
 
+    public CustomerDto(String customerId, String name, String email, String phone, String address, int i, String registrationDate) {
+    }
 }

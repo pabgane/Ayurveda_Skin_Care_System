@@ -14,4 +14,7 @@ public class CustomerTm {
     private String Phone;
     private String Address;
     private String Registration_Date;
+
+    public CustomerTm(String customerId, String name, String email, String phone, String address, int age, String registrationDate) {
+    }
 }

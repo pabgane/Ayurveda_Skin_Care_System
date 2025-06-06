@@ -5,6 +5,7 @@ import edu.ijse.ayurveda_skin_care.dto.AppoinmentDto;
 import edu.ijse.ayurveda_skin_care.dto.CustomerDto;
 import edu.ijse.ayurveda_skin_care.dto.tm.AppoinmentTM;
 import edu.ijse.ayurveda_skin_care.dto.tm.CustomerTm;
+import edu.ijse.ayurveda_skin_care.model.AppoinmentManagementModel;
 import edu.ijse.ayurveda_skin_care.model.CustomerManagementModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -86,16 +87,16 @@ public class CustomerManagementController {
     @FXML
     private TextField txtRegistrationDate;
 
-    private final CustomerManagementModel model = new CustomerManagementModel();
+    private final CustomerManagementModel customerManagementModel = new CustomerManagementModel();
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("Customer_Id"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("customer_Id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
-        colPhone.setCellValueFactory(new PropertyValueFactory<>("Phone"));
-        colAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
-        colRegistrationDate.setCellValueFactory(new PropertyValueFactory<>("Registration_Date"));
+        colRegistrationDate.setCellValueFactory(new PropertyValueFactory<>("registration_Date"));
 
         try {
             resetPage();
@@ -109,15 +110,15 @@ public class CustomerManagementController {
 
     public void loadTableData() throws SQLException, ClassNotFoundException {
         tblCustomerList.setItems(FXCollections.observableArrayList(
-                model.getAllCustomers()
+                customerManagementModel.getAllCustomers()
                         .stream()
                         .map(customerDto -> new CustomerTm(
                                 customerDto.getCustomer_Id(),
                                 customerDto.getName(),
-                                customerDto.getAge(),
                                 customerDto.getEmail(),
                                 customerDto.getPhone(),
                                 customerDto.getAddress(),
+                                customerDto.getAge(),
                                 customerDto.getRegistration_Date()
                         )).toList()
         ));
@@ -146,27 +147,60 @@ public class CustomerManagementController {
         }
     }
 
+    private boolean isValidAppointmentData(String appointmentId, String customerId, String employeeId,
+                                           String treatmentId, String date, String time, String status) {
+
+        if (appointmentId.isEmpty() || customerId.isEmpty() || employeeId.isEmpty() ||
+                treatmentId.isEmpty() || date.isEmpty() || time.isEmpty() || status.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please fill in all required fields.").show();
+            return false;
+        }
+
+        if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            new Alert(Alert.AlertType.WARNING, "Date must be in format YYYY-MM-DD.").show();
+            return false;
+        }
+
+        if (!time.matches("\\d{2}:\\d{2}:\\d{2}")) {
+            new Alert(Alert.AlertType.WARNING, "Time must be in format HH:mm.").show();
+            return false;
+        }
+
+        if (!status.matches("(?i)Active|Inactive|Cancelled")) {
+            new Alert(Alert.AlertType.WARNING, "Status must be: Active,, Inactive, or Cancelled.").show();
+            return false;
+        }
+
+
+        return true;
+    }
+
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
         String customerId = lblCustomerId.getText();
         String name = txtName.getText();
-        String age = txtAge.getText();
         String email = txtEmail.getText();
         String phone = txtPhone.getText();
         String address = txtAddress.getText();
+        String ageText = txtAge.getText();
         String registrationDate = txtRegistrationDate.getText();
+
+
+        if (!isValidAppointmentData(customerId, name, email, phone, address, ageText, registrationDate)) {
+            return;
+        }
 
         CustomerDto customerDto = new CustomerDto(
                 customerId,
                 name,
-                Integer.parseInt(age),
                 email,
                 phone,
                 address,
+                Integer.parseInt(ageText),
                 registrationDate
         );
         try {
-            boolean isSaved = model.saveCustomer(customerDto);
+            boolean isSaved = customerManagementModel.saveCustomer(customerDto);
 
             if (isSaved) {
                 resetPage();
@@ -183,23 +217,28 @@ public class CustomerManagementController {
     public void btnUpdateOnAction(ActionEvent actionEvent) {
         String customerId = lblCustomerId.getText();
         String name = txtName.getText();
-        String age = txtAge.getText();
         String email = txtEmail.getText();
         String phone = txtPhone.getText();
         String address = txtAddress.getText();
+        String ageText = txtAge.getText();
         String registrationDate = txtRegistrationDate.getText();
+
+
+        if (!isValidAppointmentData(customerId, name, email, phone, address, ageText, registrationDate)) {
+            return;
+        }
 
         CustomerDto customerDto = new CustomerDto(
                 customerId,
                 name,
-                Integer.parseInt(age),
                 email,
                 phone,
                 address,
+                Integer.parseInt(ageText),
                 registrationDate
         );
         try {
-            boolean isUpdated = model.updateCustomer(customerDto);
+            boolean isUpdated = customerManagementModel.updateCustomer(customerDto);
             if(isUpdated){
                 resetPage();
                 new Alert(Alert.AlertType.INFORMATION,"Updated").show();
@@ -222,9 +261,9 @@ public class CustomerManagementController {
         Optional<ButtonType> response = alert.showAndWait();
 
         if(response.isPresent() && response.get() == ButtonType.YES){
-            String customerId = lblCustomerId.getText();
+            String cusId = lblCustomerId.getText();
             try {
-                boolean isDeleted = model.deleteCustomer(customerId);
+                boolean isDeleted = customerManagementModel.deleteCustomer(cusId);
                 if(isDeleted){
                     resetPage();
                     new Alert(Alert.AlertType.INFORMATION,"Deleted").show();
@@ -243,7 +282,7 @@ public class CustomerManagementController {
     }
 
     private void loadNextId() throws SQLException, ClassNotFoundException {
-        String nextId = model.getNextCustomerId();
+        String nextId = customerManagementModel.getNextCustomerId();
         lblCustomerId.setText(nextId);
     }
 
@@ -253,11 +292,12 @@ public class CustomerManagementController {
         if (selectedItem != null) {
             lblCustomerId.setText(selectedItem.getCustomer_Id());
             txtName.setText(selectedItem.getName());
-            txtAge.setText(String.valueOf(selectedItem.getAge()));
             txtEmail.setText(selectedItem.getEmail());
             txtPhone.setText(selectedItem.getPhone());
             txtAddress.setText(selectedItem.getAddress());
+            txtAge.setText(String.valueOf(selectedItem.getAge()));
             txtRegistrationDate.setText(selectedItem.getRegistration_Date());
+
 
             btnSave.setDisable(true);
             btnUpdate.setDisable(false);
