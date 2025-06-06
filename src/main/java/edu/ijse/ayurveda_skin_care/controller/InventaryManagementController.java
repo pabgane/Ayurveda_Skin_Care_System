@@ -16,6 +16,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class InventaryManagementController implements Initializable {
     @FXML
@@ -80,6 +81,7 @@ public class InventaryManagementController implements Initializable {
 
     private final InventoryItemModel inventoryItemModel = new InventoryItemModel();
 
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colInventoryItemId.setCellValueFactory(new PropertyValueFactory<>("Inventory_Item_Id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -96,7 +98,64 @@ public class InventaryManagementController implements Initializable {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
         }
+    }
 
+    // Validation method
+    private boolean validateInput() {
+        // Regex Patterns for fields:
+        // Name: letters, spaces, min 2 chars
+        String namePattern = "^[A-Za-z ]{2,}$";
+
+        // Description: any text, optional but max 255 chars
+        String descriptionPattern = "^.{0,255}$";
+
+        // Quantity: digits only (positive integers)
+        String quantityPattern = "^\\d+$";
+
+        // Unit Price: decimal number, e.g., 10, 10.50
+        String unitPricePattern = "^\\d+(\\.\\d{1,2})?$";
+
+        // Expiry Date: simple date check in format yyyy-MM-dd (e.g., 2025-12-31)
+        String expiryDatePattern = "^\\d{4}-\\d{2}-\\d{2}$";
+
+        // Supplier ID: alphanumeric, at least 2 chars
+        String supplierIdPattern = "^[A-Za-z0-9]{2,}$";
+
+        if (!Pattern.matches(namePattern, txtName.getText())) {
+            showAlert("Invalid Name", "Name should contain only letters and spaces, minimum 2 characters.");
+            txtName.requestFocus();
+            return false;
+        }
+        if (!Pattern.matches(descriptionPattern, txtDescription.getText())) {
+            showAlert("Invalid Description", "Description must be less than 255 characters.");
+            txtDescription.requestFocus();
+            return false;
+        }
+        if (!Pattern.matches(quantityPattern, txtQuantity.getText())) {
+            showAlert("Invalid Quantity", "Quantity must be a positive integer.");
+            txtQuantity.requestFocus();
+            return false;
+        }
+        if (!Pattern.matches(unitPricePattern, txtUnitPrice.getText())) {
+            showAlert("Invalid Unit Price", "Unit Price must be a number (e.g., 10 or 10.50).");
+            txtUnitPrice.requestFocus();
+            return false;
+        }
+        if (!Pattern.matches(expiryDatePattern, txtExpiryDate.getText())) {
+            showAlert("Invalid Expiry Date", "Expiry Date must be in format YYYY-MM-DD (e.g., 2025-12-31).");
+            txtExpiryDate.requestFocus();
+            return false;
+        }
+        if (!Pattern.matches(supplierIdPattern, txtSupplierId.getText())) {
+            showAlert("Invalid Supplier ID", "Supplier ID must be alphanumeric and at least 2 characters.");
+            txtSupplierId.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private void showAlert(String title, String message) {
+        new Alert(Alert.AlertType.ERROR, message).showAndWait();
     }
 
     public void loadTableData() throws SQLException, ClassNotFoundException {
@@ -124,13 +183,12 @@ public class InventaryManagementController implements Initializable {
             btnDelete.setDisable(true);
             btnUpdate.setDisable(true);
 
-            txtName.setText(null);
-            txtDescription.setText(null);
-            txtQuantity.setText(null);
-            txtUnitPrice.setText(null);
-            txtExpiryDate.setText(null);
-            txtSupplierId.setText(null);
-
+            txtName.clear();
+            txtDescription.clear();
+            txtQuantity.clear();
+            txtUnitPrice.clear();
+            txtExpiryDate.clear();
+            txtSupplierId.clear();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,6 +197,8 @@ public class InventaryManagementController implements Initializable {
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
+        if (!validateInput()) return;
+
         String inventoryItemId = lblInventoryItemId.getText();
         String name = txtName.getText();
         String description = txtDescription.getText();
@@ -146,7 +206,6 @@ public class InventaryManagementController implements Initializable {
         Double unitPrice = Double.valueOf(txtUnitPrice.getText());
         String expiryDate = txtExpiryDate.getText();
         String supplierId = txtSupplierId.getText();
-
 
         InventoryItemDto inventoryItemDto = new InventoryItemDto(
                 inventoryItemId,
@@ -164,7 +223,7 @@ public class InventaryManagementController implements Initializable {
                 resetPage();
                 new Alert(Alert.AlertType.INFORMATION, "Saved").show();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Fail").show();
+                new Alert(Alert.AlertType.ERROR, "Failed to save").show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -173,6 +232,8 @@ public class InventaryManagementController implements Initializable {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
+        if (!validateInput()) return;
+
         String inventoryItemId = lblInventoryItemId.getText();
         String name = txtName.getText();
         String description = txtDescription.getText();
@@ -180,7 +241,6 @@ public class InventaryManagementController implements Initializable {
         Double unitPrice = Double.valueOf(txtUnitPrice.getText());
         String expiryDate = txtExpiryDate.getText();
         String supplierId = txtSupplierId.getText();
-
 
         InventoryItemDto inventoryItemDto = new InventoryItemDto(
                 inventoryItemId,
@@ -198,7 +258,7 @@ public class InventaryManagementController implements Initializable {
                 resetPage();
                 new Alert(Alert.AlertType.INFORMATION,"Updated").show();
             }else {
-                new Alert(Alert.AlertType.ERROR,"Fail").show();
+                new Alert(Alert.AlertType.ERROR,"Failed to update").show();
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -209,7 +269,7 @@ public class InventaryManagementController implements Initializable {
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         Alert alert = new Alert(
                 Alert.AlertType.CONFIRMATION,
-                "Are You Sure ? ",
+                "Are you sure you want to delete this item?",
                 ButtonType.YES,
                 ButtonType.NO
         );
@@ -223,7 +283,7 @@ public class InventaryManagementController implements Initializable {
                     resetPage();
                     new Alert(Alert.AlertType.INFORMATION,"Deleted").show();
                 }else {
-                    new Alert(Alert.AlertType.ERROR,"Fail").show();
+                    new Alert(Alert.AlertType.ERROR,"Failed to delete").show();
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -258,5 +318,4 @@ public class InventaryManagementController implements Initializable {
             btnDelete.setDisable(false);
         }
     }
-
 }

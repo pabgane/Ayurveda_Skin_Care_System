@@ -16,6 +16,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class SupplierManagementController implements Initializable {
 
@@ -69,6 +70,12 @@ public class SupplierManagementController implements Initializable {
 
     private final SupplierManagementModel supplierManagementModel = new SupplierManagementModel();
 
+    // Regex patterns
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[A-Za-z ]{3,50}$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[\\w.-]+@[\\w.-]+\\.\\w{2,}$");
+    private static final Pattern PHONE_PATTERN = Pattern.compile("^[0-9]{10}$");
+    private static final Pattern ADDRESS_PATTERN = Pattern.compile("^[\\w\\s.,'-]{5,100}$");
+
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colCustomerId.setCellValueFactory(new PropertyValueFactory<>("Supplier_Id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -83,7 +90,6 @@ public class SupplierManagementController implements Initializable {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
         }
-
     }
 
     public void loadTableData() throws SQLException, ClassNotFoundException {
@@ -114,20 +120,55 @@ public class SupplierManagementController implements Initializable {
             txtAddress.setText(null);
             txtEmail.setText(null);
 
-
         } catch (Exception e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
         }
     }
 
-    public void btnSaveOnAction(ActionEvent actionEvent) {
-        String supplierId = lblSupplierId.getText();
+    private boolean validateInputs() {
         String name = txtName.getText();
         String email = txtEmail.getText();
         String phone = txtPhone.getText();
         String address = txtAddress.getText();
 
+        if (name == null || !NAME_PATTERN.matcher(name).matches()) {
+            showAlert("Invalid Name", "Name should contain only letters and spaces (3-50 characters).");
+            return false;
+        }
+        if (email == null || !EMAIL_PATTERN.matcher(email).matches()) {
+            showAlert("Invalid Email", "Please enter a valid email address.");
+            return false;
+        }
+        if (phone == null || !PHONE_PATTERN.matcher(phone).matches()) {
+            showAlert("Invalid Phone", "Phone number should be exactly 10 digits.");
+            return false;
+        }
+        if (address == null || !ADDRESS_PATTERN.matcher(address).matches()) {
+            showAlert("Invalid Address", "Address should be 5-100 characters and can contain letters, numbers, spaces, and basic punctuation.");
+            return false;
+        }
+        return true;
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Validation Error");
+        alert.setHeaderText(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public void btnSaveOnAction(ActionEvent actionEvent) {
+        if (!validateInputs()) {
+            return;
+        }
+
+        String supplierId = lblSupplierId.getText();
+        String name = txtName.getText();
+        String email = txtEmail.getText();
+        String phone = txtPhone.getText();
+        String address = txtAddress.getText();
 
         SupplierManagementDto supplierManagementDto = new SupplierManagementDto(
                 supplierId,
@@ -143,7 +184,7 @@ public class SupplierManagementController implements Initializable {
                 resetPage();
                 new Alert(Alert.AlertType.INFORMATION, "Saved").show();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Fail").show();
+                new Alert(Alert.AlertType.ERROR, "Failed to save supplier.").show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,12 +193,15 @@ public class SupplierManagementController implements Initializable {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
+        if (!validateInputs()) {
+            return;
+        }
+
         String supplierId = lblSupplierId.getText();
         String name = txtName.getText();
         String email = txtEmail.getText();
         String phone = txtPhone.getText();
         String address = txtAddress.getText();
-
 
         SupplierManagementDto supplierManagementDto = new SupplierManagementDto(
                 supplierId,
@@ -168,15 +212,15 @@ public class SupplierManagementController implements Initializable {
         );
         try {
             boolean isUpdated = supplierManagementModel.updateSupplier(supplierManagementDto);
-            if(isUpdated){
+            if (isUpdated) {
                 resetPage();
-                new Alert(Alert.AlertType.INFORMATION,"Updated").show();
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Fail").show();
+                new Alert(Alert.AlertType.INFORMATION, "Updated").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to update supplier.").show();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
+            new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
         }
     }
 
@@ -189,19 +233,19 @@ public class SupplierManagementController implements Initializable {
         );
         Optional<ButtonType> response = alert.showAndWait();
 
-        if(response.isPresent() && response.get() == ButtonType.YES){
+        if (response.isPresent() && response.get() == ButtonType.YES) {
             String supplierId = lblSupplierId.getText();
             try {
                 boolean isDeleted = supplierManagementModel.deleteSupplier(supplierId);
-                if(isDeleted){
+                if (isDeleted) {
                     resetPage();
-                    new Alert(Alert.AlertType.INFORMATION,"Deleted").show();
-                }else {
-                    new Alert(Alert.AlertType.ERROR,"Fail").show();
+                    new Alert(Alert.AlertType.INFORMATION, "Deleted").show();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to delete supplier.").show();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
+                new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
             }
         }
     }

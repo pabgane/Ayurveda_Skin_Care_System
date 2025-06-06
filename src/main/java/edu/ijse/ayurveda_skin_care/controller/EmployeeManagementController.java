@@ -20,70 +20,13 @@ public class EmployeeManagementController {
     private Label lblEmployeeId;
 
     @FXML
-    private TextField txtName;
-
-    @FXML
-    private TextField txtEmail;
-
-    @FXML
-    private TextField txtPhone;
-
-    @FXML
-    private TextField txtAge;
-
-    @FXML
-    private TextField txtAddress;
-
-    @FXML
-    private TextField txtSalary;
-
-    @FXML
-    private TextField txtEmergencyContact;
-
-    @FXML
-    private TextField txtHireDate;
-
-    @FXML
-    private TextField txtPosition;
-
-    @FXML
-    private TextField txtStatus;
+    private TextField txtName, txtEmail, txtPhone, txtAge, txtAddress, txtSalary, txtEmergencyContact, txtHireDate, txtPosition, txtStatus;
 
     @FXML
     private TableView<EmployeeManagementTm> tblEmployeeList;
 
     @FXML
-    private TableColumn<?, ?> colId;
-
-    @FXML
-    private TableColumn<?, ?> colName;
-
-    @FXML
-    private TableColumn<?, ?> colEmail;
-
-    @FXML
-    private TableColumn<?, ?> colPhone;
-
-    @FXML
-    private TableColumn<?, ?> colAge;
-
-    @FXML
-    private TableColumn<?, ?> colAddress;
-
-    @FXML
-    private TableColumn<?, ?> colSalary;
-
-    @FXML
-    private TableColumn<?, ?> colEmergencyContact;
-
-    @FXML
-    private TableColumn<?, ?> colHireDate;
-
-    @FXML
-    private TableColumn<?, ?> colPosition;
-
-    @FXML
-    private TableColumn<?, ?> colStatus;
+    private TableColumn<?, ?> colId, colName, colEmail, colPhone, colAge, colAddress, colSalary, colEmergencyContact, colHireDate, colPosition, colStatus;
 
     public void initialize() {
         setCellValueFactory();
@@ -109,17 +52,17 @@ public class EmployeeManagementController {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery("SELECT Employee_Id FROM Employees ORDER BY Employee_Id DESC LIMIT 1;");
+            ResultSet rst = stm.executeQuery("SELECT Employee_Id FROM Employees ORDER BY Employee_Id DESC LIMIT 1");
 
             if (rst.next()) {
                 String id = rst.getString("Employee_Id");
-                int newEmployeeId = Integer.parseInt(id.replace("E", "")) + 1;
-                lblEmployeeId.setText(String.format("E%03d", newEmployeeId));
+                int newId = Integer.parseInt(id.replace("E", "")) + 1;
+                lblEmployeeId.setText(String.format("E%03d", newId));
             } else {
                 lblEmployeeId.setText("E001");
             }
         } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to generate employee ID").show();
+            new Alert(Alert.AlertType.ERROR, "Failed to generate Employee ID").show();
             e.printStackTrace();
         }
     }
@@ -149,13 +92,45 @@ public class EmployeeManagementController {
             }
             tblEmployeeList.setItems(obList);
         } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to load Employees").show();
+            new Alert(Alert.AlertType.ERROR, "Failed to load employees").show();
             e.printStackTrace();
         }
     }
 
+    private boolean validateFields() {
+        if (txtName.getText().isEmpty() || txtEmail.getText().isEmpty() || txtPhone.getText().isEmpty() ||
+                txtAge.getText().isEmpty() || txtAddress.getText().isEmpty() || txtSalary.getText().isEmpty() ||
+                txtEmergencyContact.getText().isEmpty() || txtHireDate.getText().isEmpty() ||
+                txtPosition.getText().isEmpty() || txtStatus.getText().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all fields").show();
+            return false;
+        }
+
+        try {
+            Integer.parseInt(txtAge.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.WARNING, "Invalid age. Please enter a valid number").show();
+            return false;
+        }
+
+        try {
+            Double.parseDouble(txtSalary.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.WARNING, "Invalid salary. Please enter a valid amount").show();
+            return false;
+        }
+
+        if (!txtPhone.getText().matches("\\d{10}")) {
+            new Alert(Alert.AlertType.WARNING, "Invalid phone number. Enter 10 digits").show();
+            return false;
+        }
+
+        return true;
+    }
+
     @FXML
     void btnSaveOnAction(ActionEvent event) {
+        if (!validateFields()) return;
 
         EmployeeManagementDto dto = new EmployeeManagementDto(
                 lblEmployeeId.getText(),
@@ -186,8 +161,7 @@ public class EmployeeManagementController {
             pstm.setString(10, dto.getPosition());
             pstm.setString(11, dto.getStatus());
 
-            int affectedRows = pstm.executeUpdate();
-            if (affectedRows > 0) {
+            if (pstm.executeUpdate() > 0) {
                 new Alert(Alert.AlertType.INFORMATION, "Employee Saved!").show();
                 clearFields();
                 loadAllEmployees();
@@ -201,6 +175,7 @@ public class EmployeeManagementController {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        if (!validateFields()) return;
 
         ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -224,7 +199,8 @@ public class EmployeeManagementController {
 
             try {
                 Connection connection = DBConnection.getInstance().getConnection();
-                PreparedStatement pstm = connection.prepareStatement("UPDATE Employees SET Name=?, Email=?, Phone=?, age=?, Address=?, salary=?, emergency_contact=?, Hire_Date=?, Position=?, Status=? WHERE Employee_Id=?");
+                PreparedStatement pstm = connection.prepareStatement(
+                        "UPDATE Employees SET Name=?, Email=?, Phone=?, age=?, Address=?, salary=?, emergency_contact=?, Hire_Date=?, Position=?, Status=? WHERE Employee_Id=?");
                 pstm.setString(1, dto.getName());
                 pstm.setString(2, dto.getEmail());
                 pstm.setString(3, dto.getPhone());
@@ -237,8 +213,7 @@ public class EmployeeManagementController {
                 pstm.setString(10, dto.getStatus());
                 pstm.setString(11, dto.getEmployee_Id());
 
-                int affectedRows = pstm.executeUpdate();
-                if (affectedRows > 0) {
+                if (pstm.executeUpdate() > 0) {
                     new Alert(Alert.AlertType.INFORMATION, "Employee Updated!").show();
                     clearFields();
                     loadAllEmployees();
@@ -269,8 +244,7 @@ public class EmployeeManagementController {
                 PreparedStatement pstm = connection.prepareStatement("DELETE FROM Employees WHERE Employee_Id=?");
                 pstm.setString(1, lblEmployeeId.getText());
 
-                int affectedRows = pstm.executeUpdate();
-                if (affectedRows > 0) {
+                if (pstm.executeUpdate() > 0) {
                     new Alert(Alert.AlertType.INFORMATION, "Employee Deleted!").show();
                     clearFields();
                     loadAllEmployees();
@@ -293,19 +267,19 @@ public class EmployeeManagementController {
 
     @FXML
     void getData(MouseEvent event) {
-        EmployeeManagementTm selectedEmployee = tblEmployeeList.getSelectionModel().getSelectedItem();
-        if (selectedEmployee != null) {
-            lblEmployeeId.setText(selectedEmployee.getEmployee_Id());
-            txtName.setText(selectedEmployee.getName());
-            txtEmail.setText(selectedEmployee.getEmail());
-            txtPhone.setText(selectedEmployee.getPhone());
-            txtAge.setText(String.valueOf(selectedEmployee.getAge()));
-            txtAddress.setText(selectedEmployee.getAddress());
-            txtSalary.setText(String.valueOf(selectedEmployee.getSalary()));
-            txtEmergencyContact.setText(selectedEmployee.getEmergency_contact());
-            txtHireDate.setText(selectedEmployee.getHire_Date());
-            txtPosition.setText(selectedEmployee.getPosition());
-            txtStatus.setText(selectedEmployee.getStatus());
+        EmployeeManagementTm selected = tblEmployeeList.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            lblEmployeeId.setText(selected.getEmployee_Id());
+            txtName.setText(selected.getName());
+            txtEmail.setText(selected.getEmail());
+            txtPhone.setText(selected.getPhone());
+            txtAge.setText(String.valueOf(selected.getAge()));
+            txtAddress.setText(selected.getAddress());
+            txtSalary.setText(String.valueOf(selected.getSalary()));
+            txtEmergencyContact.setText(selected.getEmergency_contact());
+            txtHireDate.setText(selected.getHire_Date());
+            txtPosition.setText(selected.getPosition());
+            txtStatus.setText(selected.getStatus());
         }
     }
 
