@@ -29,8 +29,8 @@ public class EquipmentModel {
                 equipmentDto.getEquipment_Id());
     }
 
-    public boolean deleteEquipment(String equipmentId) throws SQLException, ClassNotFoundException {
-        return CrudUtil.execute("DELETE FROM Equipment WHERE Equipment_Id = ?", equipmentId);
+    public boolean deleteEquipment(String equipment_id) throws SQLException, ClassNotFoundException {
+        return CrudUtil.execute("DELETE FROM Equipment WHERE Equipment_Id = ?", equipment_id);
     }
 
     public ArrayList<EquipmentDto> getAllEquipments() throws SQLException, ClassNotFoundException {
@@ -64,6 +64,6 @@ public class EquipmentModel {
 
             return nextIdString;
         }
-        return tableCharacter+ "1";
+        return tableCharacter+ "001";
     }
 }

@@ -143,7 +143,7 @@
                     <content>
                         <TableView fx:id="tblEquipmentList" onMouseClicked="#getData" prefHeight="417.0" prefWidth="1319.0">
                             <columns>
-                                <TableColumn fx:id="colEquipmentId" prefWidth="123.0" text="Equipment Id" />
+                                <TableColumn fx:id="colEquipmentId" prefWidth="123.0" text="EquipmentId" />
                                 <TableColumn fx:id="colName" prefWidth="252.0" text="Name" />
                                 <TableColumn fx:id="colSerialNumber" prefWidth="394.0" text="Serial Number" />
                                 <TableColumn fx:id="colPerchaseDate" prefWidth="197.0" text="Perchase Date" />

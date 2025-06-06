@@ -1,6 +1,5 @@
 package edu.ijse.ayurveda_skin_care.dto.tm;
 
-import edu.ijse.ayurveda_skin_care.dto.EquipmentDto;
 import lombok.*;
 
 @AllArgsConstructor
