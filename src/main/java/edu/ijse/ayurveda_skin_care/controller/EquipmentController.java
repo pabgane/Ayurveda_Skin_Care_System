@@ -1,12 +1,9 @@
 package edu.ijse.ayurveda_skin_care.controller;
 
-import edu.ijse.ayurveda_skin_care.db.DBConnection;
 import edu.ijse.ayurveda_skin_care.dto.EquipmentDto;
-import edu.ijse.ayurveda_skin_care.dto.tm.EmployeeManagementTm;
 import edu.ijse.ayurveda_skin_care.dto.tm.EquipmentTM;
 import edu.ijse.ayurveda_skin_care.model.EquipmentModel;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,10 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -29,34 +23,10 @@ public class EquipmentController implements Initializable {
     private AnchorPane ancCustomerManagement;
 
     @FXML
-    private Button btnClear;
+    private Button btnClear, btnDelete, btnSave, btnUpdate;
 
     @FXML
-    private Button btnDelete;
-
-    @FXML
-    private Button btnSave;
-
-    @FXML
-    private Button btnUpdate;
-
-    @FXML
-    private TableColumn<EquipmentTM, String> colEquipmentId;
-
-    @FXML
-    private TableColumn<EquipmentTM, String> colLastMaintenanceDate;
-
-    @FXML
-    private TableColumn<EquipmentTM, String> colName;
-
-    @FXML
-    private TableColumn<EquipmentTM, String> colPerchaseDate;
-
-    @FXML
-    private TableColumn<EquipmentTM, String> colSerialNumber;
-
-    @FXML
-    private TableColumn<EquipmentTM, String> colStatus;
+    private TableColumn<EquipmentTM, String> colEquipmentId, colLastMaintenanceDate, colName, colPerchaseDate, colSerialNumber, colStatus;
 
     @FXML
     private Label lblEquipmentId;
@@ -65,22 +35,11 @@ public class EquipmentController implements Initializable {
     private TableView<EquipmentTM> tblEquipmentList;
 
     @FXML
-    private TextField txtLastMaintenanceDate;
-
-    @FXML
-    private TextField txtName;
-
-    @FXML
-    private TextField txtPerchaseDate;
-
-    @FXML
-    private TextField txtSerialNumber;
-
-    @FXML
-    private TextField txtStatus;
+    private TextField txtLastMaintenanceDate, txtName, txtPerchaseDate, txtSerialNumber, txtStatus;
 
     private final EquipmentModel equipmentModel = new EquipmentModel();
 
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colEquipmentId.setCellValueFactory(new PropertyValueFactory<>("Equipment_Id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -96,7 +55,6 @@ public class EquipmentController implements Initializable {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
         }
-
     }
 
     public void loadTableData() throws SQLException, ClassNotFoundException {
@@ -123,12 +81,11 @@ public class EquipmentController implements Initializable {
             btnDelete.setDisable(true);
             btnUpdate.setDisable(true);
 
-            txtName.setText(null);
-            txtSerialNumber.setText(null);
-            txtPerchaseDate.setText(null);
-            txtLastMaintenanceDate.setText(null);
-            txtStatus.setText(null);
-
+            txtName.clear();
+            txtSerialNumber.clear();
+            txtPerchaseDate.clear();
+            txtLastMaintenanceDate.clear();
+            txtStatus.clear();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,30 +93,94 @@ public class EquipmentController implements Initializable {
         }
     }
 
+    private boolean validateInputs() {
+        // Name validation: Letters and spaces only, 3-50 chars
+        if (txtName.getText().isEmpty()) {
+            showValidationError("Please enter equipment name.");
+            txtName.requestFocus();
+            return false;
+        }
+        if (!txtName.getText().matches("^[A-Za-z ]{3,50}$")) {
+            showValidationError("Name should only contain letters and spaces (3-50 characters).");
+            txtName.requestFocus();
+            return false;
+        }
+
+        // Serial Number: Uppercase letters, digits, hyphens, 3-30 chars
+        if (txtSerialNumber.getText().isEmpty()) {
+            showValidationError("Please enter serial number.");
+            txtSerialNumber.requestFocus();
+            return false;
+        }
+        if (!txtSerialNumber.getText().matches("^[a-zA-Z0-9]{3,30}$")) {
+            showValidationError("Serial number should contain only letters or numbers (3-30 characters).");
+            txtSerialNumber.requestFocus();
+            return false;
+        }
+
+        // Purchase Date: Validate date format yyyy-MM-dd
+        if (txtPerchaseDate.getText().isEmpty()) {
+            showValidationError("Please enter purchase date.");
+            txtPerchaseDate.requestFocus();
+            return false;
+        }
+        if (!txtPerchaseDate.getText().matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+            showValidationError("Purchase date must be in format YYYY-MM-DD.");
+            txtPerchaseDate.requestFocus();
+            return false;
+        }
+
+        // Last Maintenance Date: Validate date format yyyy-MM-dd
+        if (txtLastMaintenanceDate.getText().isEmpty()) {
+            showValidationError("Please enter last maintenance date.");
+            txtLastMaintenanceDate.requestFocus();
+            return false;
+        }
+        if (!txtLastMaintenanceDate.getText().matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+            showValidationError("Last maintenance date must be in format YYYY-MM-DD.");
+            txtLastMaintenanceDate.requestFocus();
+            return false;
+        }
+
+        // Status: Letters only, 3-20 chars
+        if (txtStatus.getText().isEmpty()) {
+            showValidationError("Please enter status.");
+            txtStatus.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void showValidationError(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Validation Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
     public void btnSaveOnAction(ActionEvent actionEvent) {
+        if (!validateInputs()) return;
+
         String equipmentId = lblEquipmentId.getText();
         String name = txtName.getText();
         String serialNumber = txtSerialNumber.getText();
-        String perchaseDate = txtPerchaseDate.getText();
+        String purchaseDate = txtPerchaseDate.getText();
         String lastMaintenanceDate = txtLastMaintenanceDate.getText();
         String status = txtStatus.getText();
 
-        EquipmentDto equipmentDto = new EquipmentDto(
-                equipmentId,
-                name,
-                serialNumber,
-                perchaseDate,
-                lastMaintenanceDate,
-                status
+        EquipmentDto dto = new EquipmentDto(
+                equipmentId, name, serialNumber, purchaseDate, lastMaintenanceDate, status
         );
-        try {
-            boolean isSaved = equipmentModel.saveEquipment(equipmentDto);
 
+        try {
+            boolean isSaved = equipmentModel.saveEquipment(dto);
             if (isSaved) {
                 resetPage();
                 new Alert(Alert.AlertType.INFORMATION, "Saved").show();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Fail").show();
+                new Alert(Alert.AlertType.ERROR, "Save Failed").show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -168,57 +189,50 @@ public class EquipmentController implements Initializable {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
+        if (!validateInputs()) return;
+
         String equipmentId = lblEquipmentId.getText();
         String name = txtName.getText();
         String serialNumber = txtSerialNumber.getText();
-        String perchaseDate = txtPerchaseDate.getText();
+        String purchaseDate = txtPerchaseDate.getText();
         String lastMaintenanceDate = txtLastMaintenanceDate.getText();
         String status = txtStatus.getText();
 
-        EquipmentDto equipmentListDto = new EquipmentDto(
-                equipmentId,
-                name,
-                serialNumber,
-                perchaseDate,
-                lastMaintenanceDate,
-                status
+        EquipmentDto dto = new EquipmentDto(
+                equipmentId, name, serialNumber, purchaseDate, lastMaintenanceDate, status
         );
+
         try {
-            boolean isUpdated = equipmentModel.updateEquipment(equipmentListDto);
-            if(isUpdated){
+            boolean isUpdated = equipmentModel.updateEquipment(dto);
+            if (isUpdated) {
                 resetPage();
-                new Alert(Alert.AlertType.INFORMATION,"Updated").show();
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Fail").show();
+                new Alert(Alert.AlertType.INFORMATION, "Updated").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Update Failed").show();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
+            new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
         }
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
-        Alert alert = new Alert(
-                Alert.AlertType.CONFIRMATION,
-                "Are You Sure ? ",
-                ButtonType.YES,
-                ButtonType.NO
-        );
-        Optional<ButtonType> response = alert.showAndWait();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> result = alert.showAndWait();
 
-        if(response.isPresent() && response.get() == ButtonType.YES){
+        if (result.isPresent() && result.get() == ButtonType.YES) {
             String equipmentId = lblEquipmentId.getText();
             try {
                 boolean isDeleted = equipmentModel.deleteEquipment(equipmentId);
-                if(isDeleted){
+                if (isDeleted) {
                     resetPage();
-                    new Alert(Alert.AlertType.INFORMATION,"Deleted").show();
-                }else {
-                    new Alert(Alert.AlertType.ERROR,"Fail").show();
+                    new Alert(Alert.AlertType.INFORMATION, "Deleted").show();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Delete Failed").show();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
+                new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
             }
         }
     }
@@ -233,8 +247,7 @@ public class EquipmentController implements Initializable {
     }
 
     public void getData(MouseEvent mouseEvent) {
-        EquipmentTM selectedItem = (EquipmentTM) tblEquipmentList.getSelectionModel().getSelectedItem();
-
+        EquipmentTM selectedItem = tblEquipmentList.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             lblEquipmentId.setText(selectedItem.getEquipment_Id());
             txtName.setText(selectedItem.getName());

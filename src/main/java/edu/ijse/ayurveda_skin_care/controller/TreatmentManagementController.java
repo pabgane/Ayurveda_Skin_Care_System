@@ -69,6 +69,7 @@ public class TreatmentManagementController implements Initializable {
 
     private final TreatmentManagementModel treatmentManagementModel = new TreatmentManagementModel();
 
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colTreatmentId.setCellValueFactory(new PropertyValueFactory<>("Treatment_Id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -83,7 +84,6 @@ public class TreatmentManagementController implements Initializable {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
         }
-
     }
 
     public void loadTableData() throws SQLException, ClassNotFoundException {
@@ -114,19 +114,54 @@ public class TreatmentManagementController implements Initializable {
             txtDuration.setText(null);
             txtPrice.setText(null);
 
-
         } catch (Exception e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Something went wrong!").show();
         }
     }
 
+    private boolean validateInputs(String name, String description, String durationStr, String priceStr) {
+        String namePattern = "^[A-Za-z ]{3,50}$";
+        String descriptionPattern = "^[A-Za-z0-9 ,.]{5,200}$";
+        String durationPattern = "^[1-9][0-9]{0,2}$"; // 1 to 999
+        String pricePattern = "^\\d+(\\.\\d{1,2})?$"; // decimal with up to 2 decimal places
+
+        if (!name.matches(namePattern)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Name! Only letters and spaces allowed (3-50 characters).").show();
+            return false;
+        }
+
+        if (!description.matches(descriptionPattern)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Description! Letters, numbers, spaces, commas and periods allowed (5-200 characters).").show();
+            return false;
+        }
+
+        if (!durationStr.matches(durationPattern)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Duration! Enter a number between 1 and 999.").show();
+            return false;
+        }
+
+        if (!priceStr.matches(pricePattern)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Price! Enter a valid decimal number with up to 2 decimal places.").show();
+            return false;
+        }
+
+        return true;
+    }
+
     public void btnSaveOnAction(ActionEvent actionEvent) {
         String treatmentId = lblTreatmentId.getText();
-        String name = txtName.getText();
-        String description = txtDescription.getText();
-        int duration = Integer.parseInt(txtDuration.getText());
-        Double price = Double.valueOf(txtPrice.getText());
+        String name = txtName.getText().trim();
+        String description = txtDescription.getText().trim();
+        String durationStr = txtDuration.getText().trim();
+        String priceStr = txtPrice.getText().trim();
+
+        if (!validateInputs(name, description, durationStr, priceStr)) {
+            return; // Invalid inputs - stop processing
+        }
+
+        int duration = Integer.parseInt(durationStr);
+        Double price = Double.valueOf(priceStr);
 
         TreatmentDto treatmentDto = new TreatmentDto(
                 treatmentId,
@@ -142,7 +177,7 @@ public class TreatmentManagementController implements Initializable {
                 resetPage();
                 new Alert(Alert.AlertType.INFORMATION, "Saved").show();
             } else {
-                new Alert(Alert.AlertType.ERROR, "Fail").show();
+                new Alert(Alert.AlertType.ERROR, "Save failed").show();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -152,10 +187,17 @@ public class TreatmentManagementController implements Initializable {
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
         String treatmentId = lblTreatmentId.getText();
-        String name = txtName.getText();
-        String description = txtDescription.getText();
-        int duration = Integer.parseInt(txtDuration.getText());
-        Double price = Double.valueOf(txtPrice.getText());
+        String name = txtName.getText().trim();
+        String description = txtDescription.getText().trim();
+        String durationStr = txtDuration.getText().trim();
+        String priceStr = txtPrice.getText().trim();
+
+        if (!validateInputs(name, description, durationStr, priceStr)) {
+            return; // Invalid inputs - stop processing
+        }
+
+        int duration = Integer.parseInt(durationStr);
+        Double price = Double.valueOf(priceStr);
 
         TreatmentDto treatmentDto = new TreatmentDto(
                 treatmentId,
@@ -166,40 +208,40 @@ public class TreatmentManagementController implements Initializable {
         );
         try {
             boolean isUpdated = treatmentManagementModel.updateTreatment(treatmentDto);
-            if(isUpdated){
+            if (isUpdated) {
                 resetPage();
-                new Alert(Alert.AlertType.INFORMATION,"Updated").show();
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Fail").show();
+                new Alert(Alert.AlertType.INFORMATION, "Updated").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Update failed").show();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
+            new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
         }
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         Alert alert = new Alert(
                 Alert.AlertType.CONFIRMATION,
-                "Are You Sure ? ",
+                "Are you sure?",
                 ButtonType.YES,
                 ButtonType.NO
         );
         Optional<ButtonType> response = alert.showAndWait();
 
-        if(response.isPresent() && response.get() == ButtonType.YES){
+        if (response.isPresent() && response.get() == ButtonType.YES) {
             String treatmentId = lblTreatmentId.getText();
             try {
                 boolean isDeleted = treatmentManagementModel.deleteTreatment(treatmentId);
-                if(isDeleted){
+                if (isDeleted) {
                     resetPage();
-                    new Alert(Alert.AlertType.INFORMATION,"Deleted").show();
-                }else {
-                    new Alert(Alert.AlertType.ERROR,"Fail").show();
+                    new Alert(Alert.AlertType.INFORMATION, "Deleted").show();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Delete failed").show();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR,"Something went wrong").show();
+                new Alert(Alert.AlertType.ERROR, "Something went wrong").show();
             }
         }
     }
